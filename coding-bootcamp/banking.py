@@ -1,20 +1,36 @@
+#!/usr/local/bin/python3
+
 class Account:
-    balance = 0
-    active = False
-    account_type = ""
-    account_number = 0000000
-    def deposit(self, amount, acc_type):
+    
+    AMOUNT_MIN = 150
+    
+    def __init__(self, balance, account_type):
+        self.balance = balance
+        self.account_type = account_type
+        if self.balance >= self.AMOUNT_MIN:
+            self.active = True
+            return print(f'A new account has been created. Your current balance is {self.balance}.')        
+        else:
+            self.active = False
+            return print(f'The balance is lower than the minimum amount required. Please deposit an amount greater or equal to {self.AMOUNT_MIN}')
+    
+    def deposit(self, amount):
         self.balance += amount
-        self.account_type = acc_type
-        return self.balance
+        if self.balance >= self.AMOUNT_MIN:
+            self.active = True
+            return print(f'You\'ve deposited {amount}. Your new balance is {self.balance}')
     
-
-        
+    def withdraw(self, amount):
+        if amount > self.balance:
+            return print(f'The amount requested, {self.balance} is greated than the available balance!')
+        else:
+            self.balance -= amount
+        return print(f'You\'ve withdrawn {amount} from your {self.account_type} account. Your new balance is {self.balance}')
     
-A = Account()
-A.deposit(100, "checque")
-print(f'The balance is {A.balance}')
+A = Account(140, "checque")
 
-A.withdraw(25, "checque")
-print(f'Your remaining balance is {A.balance}')
+A.deposit(500)
 
+A.withdraw(150)
+
+print(A.active)
