@@ -33,4 +33,3 @@ A.deposit(500)
 
 A.withdraw(150)
 
-print(A.active)
